@@ -17,7 +17,7 @@
       font-family: 'Roboto', sans-serif;
       background: linear-gradient(to bottom, #ffffff, #007EE1);
       color: #333;
-      margin-bottom: 450px;
+      min-height: 100vh;
     }
 
     .kolorek {
@@ -25,6 +25,7 @@
     }
 
     .saved-city-btn {
+      border-radius: 7px;
       margin: 5px;
       padding: 8px 12px;
       background-color: #f0f0f0;
@@ -33,11 +34,15 @@
     }
 
     h1 {
-      margin-top: 80px;
+      margin-top: 50px;
       margin-bottom: 80px;
     }
 
     form {
+      margin-bottom: 80px;
+    }
+
+    #savedCities {
       margin-bottom: 80px;
     }
   </style>
@@ -48,7 +53,7 @@
 
     <h1>Tutaj pogodynka Joasia</h1>
 
-    <p>Podaj miejscowość</p>
+    <h4>Podaj miejscowość</h4>
 
     <form>
       <input type="text" id="cityInput" placeholder="Wpisz miasto">

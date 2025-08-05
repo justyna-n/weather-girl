@@ -31,7 +31,7 @@ async function getData(city) {
       <p>${description}</p>
       <img src="${iconUrl}" alt="Ikona pogody"> <br>
       <p>${temperatureMin}°C/${temperatureMax}°C</p>
-      <p>Temp. odczuwalna ${temperatureFeel}°C</p>
+      <p>Temp. odczuwalna ${temperatureFeel}°C</p><br><br><br>
     `;
 
   } catch (error) {
