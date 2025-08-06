@@ -1,6 +1,6 @@
 const apiKey = "ef64a5098eabf407e723ebccd99d75e5"
 
-async function getData(city) {
+async function getData(city, resultId = "weatherResult") {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=pl`;
   try {
     const response = await fetch(url);
@@ -9,11 +9,7 @@ async function getData(city) {
     }
 
     const json = await response.json();
-    console.log(json);
-
-
-
-    const resultBox = document.getElementById("weatherResult");
+    const resultBox = document.getElementById(resultId);
     const now = new Date();
     const date = now.toLocaleDateString();
     const temperature = Math.round(json.main.temp);
@@ -31,12 +27,25 @@ async function getData(city) {
       <p>${description}</p>
       <img src="${iconUrl}" alt="Ikona pogody"> <br>
       <p>${temperatureMin}°C/${temperatureMax}°C</p>
-      <p>Temp. odczuwalna ${temperatureFeel}°C</p><br><br><br>
+      <p>Temp. odczuwalna ${temperatureFeel}°C</p><br>
     `;
 
   } catch (error) {
     console.error(error.message);
+  }
+}
 
+async function getDataForAllSavedCities() {
+  const savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
+  const weatherContainer = document.getElementById("weatherContainer");
+  weatherContainer.innerHTML = ""; // Clear previous results
+
+  for (const city of savedCities) {
+    const cityWeatherDiv = document.createElement("div");
+    cityWeatherDiv.className = "weather-card";
+    cityWeatherDiv.id = `weather-${city}`;
+    weatherContainer.appendChild(cityWeatherDiv);
+    await getData(city, cityWeatherDiv.id);
   }
 }
 
@@ -83,4 +92,7 @@ function showSavedCities() {
 }
 
 
-document.addEventListener("DOMContentLoaded", showSavedCities);
+document.addEventListener("DOMContentLoaded", () => {
+  showSavedCities();
+  getDataForAllSavedCities();
+});
